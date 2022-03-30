@@ -10,16 +10,19 @@ async function generateLeaderboard() {
     let projects = await axios.get(`https://opensheet.elk.sh/1OC5gOWCpUrDXI8HAPEM9iOohoznBfAVF9d-rSMO7FXM/Project2022`)
     leaderboard = {};
     projects = projects.data;
-    let identifyingLabel = "GSSoc22";
+    let identifyingLabel = "GSSoC22";
     let labels = [{
+        label: "Level0",
+        points: 5
+    }, {
         label: "Level1",
-        points: 10
+        points: 15
     }, {
         label: "Level2",
-        points: 20
+        points: 25
     }, {
         label: "Level3",
-        points: 30
+        points: 45
     }]
     for (let m = 0; m < projects.length; m++) {
         projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + projects[m].project_link.split("/")[4]
