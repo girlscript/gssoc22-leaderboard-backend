@@ -7,28 +7,25 @@ const timer = ms => new Promise(res => setTimeout(res, ms))
 let leaderboard = {};
 
 async function generateLeaderboard() {
-    let projects = await axios.get(`https://opensheet.elk.sh/1OC5gOWCpUrDXI8HAPEM9iOohoznBfAVF9d-rSMO7FXM/Project2022`)
+    let projects = await axios.get(`https://opensheet.elk.sh/1v7VqK6i_xJK4nJ6GKzoeafwrnlJR8Y5-8v0Qfsh3gqo/Shortlisted`)
     leaderboard = {};
     projects = projects.data;
-    let identifyingLabel = "GSSoC22";
+    let identifyingLabel = "gssoc23";
     let labels = [{
-        label: "Level0",
-        points: 5
+        label: "level1",
+        points: 10
     }, {
-        label: "Level1",
-        points: 15
-    }, {
-        label: "Level2",
+        label: "level2",
         points: 25
     }, {
-        label: "Level3",
-        points: 45
+        label: "level3",
+        points: 40
     }]
     for (let m = 0; m < projects.length; m++) {
         projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + projects[m].project_link.split("/")[4]
         //console.log(projects[m].project_link);
         //console.log(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&per_page=100`);
-        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&per_page=100`, {
+        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&created=2023-05-20&per_page=100`, {
             headers: {
                 Authorization: 'token ' + process.env.GIT_KEY
             }
@@ -68,7 +65,7 @@ async function generateLeaderboard() {
                     console.log("========")
                     for (let i = 2; i <= pages; i++) {
                         console.log("Page: " + i);
-                        let paginated = await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&per_page=100&page=${i}`, {
+                        let paginated = await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&created=2023-05-20&per_page=100&page=${i}`, {
                             headers: {
                                 Authorization: 'token ' + process.env.GIT_KEY
                             }
