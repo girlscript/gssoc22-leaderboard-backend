@@ -19,7 +19,7 @@ async function generateLeaderboard() {
         points: 25
     }, {
         label: "level3",
-        points: 40
+        points: 45
     }]
     for (let m = 0; m < projects.length; m++) {
         projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + projects[m].project_link.split("/")[4]
