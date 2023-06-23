@@ -10,6 +10,10 @@ async function generateLeaderboard() {
     let projects = await axios.get(`https://opensheet.elk.sh/1v7VqK6i_xJK4nJ6GKzoeafwrnlJR8Y5-8v0Qfsh3gqo/Shortlisted`)
     leaderboard = {};
     projects = projects.data;
+    // Push In GSSOC Repo
+    projects.push({
+        project_link: "https://github.com/girlscript/gssoc-website-new",
+    })
     let identifyingLabel = "gssoc23";
     let labels = [{
         label: "level1",
