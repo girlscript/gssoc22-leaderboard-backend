@@ -24,8 +24,8 @@ async function generateLeaderboard() {
     for (let m = 0; m < projects.length; m++) {
         projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + projects[m].project_link.split("/")[4]
         //console.log(projects[m].project_link);
-        //console.log(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&per_page=100`);
-        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&created=2023-05-20&per_page=100`, {
+        //console.log(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged+closed:2023-05-20..2023-08-10&per_page=100`);
+        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged+closed:2023-05-20..2023-08-10&per_page=100`, {
             headers: {
                 Authorization: 'token ' + process.env.GIT_KEY
             }
@@ -65,7 +65,7 @@ async function generateLeaderboard() {
                     console.log("========")
                     for (let i = 2; i <= pages; i++) {
                         console.log("Page: " + i);
-                        let paginated = await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged&created=2023-05-20&per_page=100&page=${i}`, {
+                        let paginated = await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:${identifyingLabel}+is:merged+closed:2023-05-20..2023-08-10&per_page=100&page=${i}`, {
                             headers: {
                                 Authorization: 'token ' + process.env.GIT_KEY
                             }
@@ -120,7 +120,7 @@ async function generateLeaderboard() {
         success: true,
         updatedAt: +new Date(),
         generated: true,
-        updatedTimestring: new Date().toLocaleString()
+        updatedTimestring: new Date().toLocaleString() + " No New PRs merged after 10th August 11:59p.m are counted"
     }
     fs.truncate('leaderboard.json', 0, function () { console.log('done') })
     fs.writeFile('leaderboard.json', JSON.stringify(json), 'utf8', function (err) {
