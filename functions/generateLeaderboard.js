@@ -98,7 +98,7 @@ async function generateLeaderboard() {
                             console.log("Completed page: " + (i + 1));
 
                         })
-                        await timer(7000);
+                        await timer(10000);
                     }
                 }
 
